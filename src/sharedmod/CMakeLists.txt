@@ -1,4 +1,4 @@
-include_directories(${CMAKE_SOURCE_DIR}/libutil)
+include_directories(${CMAKE_SOURCE_DIR}/libutil/inc)
 include_directories(${CMAKE_SOURCE_DIR}/../include)
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 

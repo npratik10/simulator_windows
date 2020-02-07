@@ -1,5 +1,5 @@
 include_directories(${CMAKE_SOURCE_DIR}/../include)
-include_directories(${CMAKE_SOURCE_DIR}/libutil)
+include_directories(${CMAKE_SOURCE_DIR}/libutil/inc)
 include_directories(${CMAKE_SOURCE_DIR}/sharedmod)
 
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
