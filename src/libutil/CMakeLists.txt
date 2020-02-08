@@ -6,6 +6,7 @@ list(APPEND lib_inc
     "${CMAKE_SOURCE_DIR}/libutil/inc/clock.h"
     "${CMAKE_SOURCE_DIR}/libutil/inc/component.h"
     "${CMAKE_SOURCE_DIR}/libutil/inc/block.h"
+    "${CMAKE_SOURCE_DIR}/libutil/inc/adder.h"
 )
 
 list(APPEND lib_src
@@ -13,6 +14,7 @@ list(APPEND lib_src
     "${CMAKE_SOURCE_DIR}/libutil/src/clock.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/component.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/block.cpp"
+    "${CMAKE_SOURCE_DIR}/libutil/src/adder.cpp"
 )
 
 add_library(libutil STATIC ${lib_src} ${lib_inc})
