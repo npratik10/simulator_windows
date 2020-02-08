@@ -3,6 +3,7 @@
 clock::clock(std::string name)
 {
     clkName = name;
+    clkCnt = 0;
     riseEdge = true;
 }
 
@@ -29,4 +30,9 @@ std::string clock::get_clk_name()
 uint64_t clock::get_clock_cycle()
 {
     return clkCnt;
+}
+
+bool clock::get_rise_edge()
+{
+    return riseEdge;
 }

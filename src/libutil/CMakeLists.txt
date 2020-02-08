@@ -4,11 +4,15 @@ include_directories(${CMAKE_SOURCE_DIR}/libutil/inc)
 list(APPEND lib_inc
     "${CMAKE_SOURCE_DIR}/libutil/inc/random.h"
     "${CMAKE_SOURCE_DIR}/libutil/inc/clock.h"
+    "${CMAKE_SOURCE_DIR}/libutil/inc/component.h"
+    "${CMAKE_SOURCE_DIR}/libutil/inc/block.h"
 )
 
 list(APPEND lib_src
     "${CMAKE_SOURCE_DIR}/libutil/src/random.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/clock.cpp"
+    "${CMAKE_SOURCE_DIR}/libutil/src/component.cpp"
+    "${CMAKE_SOURCE_DIR}/libutil/src/block.cpp"
 )
 
 add_library(libutil STATIC ${lib_src} ${lib_inc})

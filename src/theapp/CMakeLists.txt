@@ -8,3 +8,5 @@ add_executable(theapp main.cpp)
 
 target_link_libraries(theapp debug sharedmod.lib)
 target_link_libraries(theapp optimized sharedmod.lib)
+target_link_libraries(theapp debug libutil.lib)
+target_link_libraries(theapp optimized libutil.lib)
