@@ -6,6 +6,7 @@ component::component()
     upstream_component = nullptr;
     is_first_in_block = false;
     processed_output = 0;
+    component_output_set = false;
 }
 
 component::~component()
@@ -36,16 +37,24 @@ void component::set_component_attributes(std::string component_name, uint32_t in
     m_component_name    = component_name;
     m_output_delay      = output_delay;
     m_input_delay       = input_delay;
+    m_delay             = input_delay;
 }
 
-uint32_t component::get_component_input()
+bool component::get_component_input(uint32_t &input_val)
 {
     if (is_first_in_block)
     {
-        return 5; //temporary use 5 for the first block
+        input_val = 5;
+        return true; //temporary use 5 for the first block
     }
 
-    return upstream_component->set_component_output();
+    if (upstream_component->is_component_output_ready())
+    {
+        input_val = upstream_component->set_component_output();
+        return true;
+    }
+    else
+        return false;
 }
 
 component * component::get_downstream_component()
@@ -68,15 +77,71 @@ uint32_t component::get_input_delay()
     return m_input_delay;
 }
 
+uint32_t component::get_input()
+{
+    return uint32_t();
+}
+
 bool component::is_component_output_ready()
 {
-    uint32_t total_delay = this->m_output_delay + downstream_component->get_input_delay();
-    //if ((m_component_clock->get_clock_cycle() + total_delay) )
+    if (m_component_clock->get_clock_cycle() == output_ready_cycle)
+    {
+        return true;
+    }
     return false;
+}
+
+bool component::output_ready()
+{
+    if (m_component_clock->get_clock_cycle() == (process_clk_cycle + m_delay))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool component::input_ready(bool &is_src_upstream_component)
+{
+    if (is_first_in_block)
+    {
+        is_src_upstream_component = false;
+        if (one_time)
+        {
+            one_time = false;
+            return true; //temporary use 5 for the first block
+        }
+        else
+            return false;
+    }
+    else if (upstream_component->output_ready())
+    {
+        is_src_upstream_component = true;
+        return true;
+    }
+    else
+        return false;
+}
+
+uint32_t component::get_output()
+{
+    return processed_output;
+}
+
+uint32_t component::get_input(bool is_src_upstream_component)
+{
+    if (is_src_upstream_component)
+        return upstream_component->get_output();
+    return 5;
 }
 
 uint32_t component::set_component_output()
 {
+    output_ready_cycle = 0;
+    component_output_set = false;
+    if (downstream_component != nullptr)
+    {
+        downstream_component->component_output_set = false;
+    }
     return processed_output;
 }
 
@@ -114,5 +179,22 @@ void component::component_function()
 
 void component::process_clock()
 {
-    this->component_function();
+    /*uint32_t downstream_input_delay = 0;
+    if (!component_output_set)
+    {
+        this->component_function();
+        if (downstream_component != nullptr)
+        {
+            downstream_input_delay = downstream_component->get_input_delay();
+        }
+        output_ready_cycle = m_component_clock->get_clock_cycle() + this->m_output_delay + downstream_input_delay;
+        component_output_set = true;
+    }*/
+    bool is_upstream_component_ip;
+    if (input_ready(is_upstream_component_ip))
+    {
+        this->process_clk_cycle = m_component_clock->get_clock_cycle();
+        this->processed_input = get_input(is_upstream_component_ip);
+        this->component_function();
+    }
 }

@@ -25,18 +25,27 @@ public:
     std::string get_component_name();
     void get_incoming_component();
     void get_outgoing_component();
-    uint32_t get_component_input();
+    bool get_component_input(uint32_t &input_val);
     component* get_downstream_component();
     component* get_upstream_component();
     uint32_t get_output_delay();
     uint32_t get_input_delay();
+    uint32_t get_input();
 
     // logic function
     bool is_component_output_ready();
+    bool output_ready();
+    bool input_ready(bool &is_src_upstream_component);
+    uint32_t get_output();
+    uint32_t get_input(bool is_src_upstream_component);
 
     // process function
     virtual void component_function();
     void process_clock();
+
+    bool component_output_set;
+    uint32_t processed_output;
+    uint32_t processed_input;
 
 private:
     component *downstream_component;     // downstream component
@@ -45,11 +54,14 @@ private:
     std::string m_component_name;          // component name
     uint32_t m_output_delay;               // Input Delay of the component
     uint32_t m_input_delay;                // Output delay of the component
+    uint32_t m_delay;
     std::queue<uint32_t> input_buffer;   // Input Buffer
     std::queue<uint32_t> output_buffer;  // Output Buffer
     bool is_first_in_block;
     clock *m_component_clock;
 
-protected:
-    uint32_t processed_output;
+    // simlation logic
+    uint32_t output_ready_cycle;
+    uint32_t process_clk_cycle;
+    bool one_time = true;
 };
