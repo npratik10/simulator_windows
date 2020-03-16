@@ -9,6 +9,8 @@ list(APPEND lib_inc
     "${CMAKE_SOURCE_DIR}/libutil/inc/block.h"
     "${CMAKE_SOURCE_DIR}/libutil/inc/adder.h"
     "${CMAKE_SOURCE_DIR}/libutil/inc/component_queue.h"
+    "${CMAKE_SOURCE_DIR}/libutil/inc/component_block.h"
+    "${CMAKE_SOURCE_DIR}/libutil/inc/subtract.h"
 )
 
 list(APPEND lib_src
@@ -18,6 +20,8 @@ list(APPEND lib_src
     "${CMAKE_SOURCE_DIR}/libutil/src/block.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/adder.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/component_queue.cpp"
+    "${CMAKE_SOURCE_DIR}/libutil/src/component_block.cpp"
+    "${CMAKE_SOURCE_DIR}/libutil/src/subtract.cpp"
 )
 
 add_library(libutil STATIC ${lib_src} ${lib_inc})
