@@ -1,6 +1,6 @@
 #include "component_block.h"
 
-class subtract : public component_block
+class subtract : public component_block<uint32_t>
 {
 public:
     subtract(std::string name, clock *clk);

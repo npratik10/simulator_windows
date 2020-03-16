@@ -1,7 +1,5 @@
 #include <iostream>
-#include "clock.h"
 #include "subtract.h"
-#include "component_queue.h"
 
 int main()
 {
@@ -9,9 +7,9 @@ int main()
     clock *clk = new clock(clk_name);
 
    subtract *sub1 = new subtract("sub1", clk);
-   component_queue *fifo_ip1 = new component_queue("fifo_ip1", clk, 4, 1);
-   component_queue *fifo_ip2 = new component_queue("fifo_ip2", clk, 4, 1);
-   component_queue *fifo_op = new component_queue("fifo_op", clk, 4, 1);
+   component_queue<uint32_t> *fifo_ip1 = new component_queue<uint32_t>("fifo_ip1", clk, 4, 1);
+   component_queue<uint32_t> *fifo_ip2 = new component_queue<uint32_t>("fifo_ip2", clk, 4, 1);
+   component_queue<uint32_t> *fifo_op = new component_queue<uint32_t>("fifo_op", clk, 4, 1);
 
    sub1->connect_upstream(fifo_ip1);
    sub1->connect_upstream(fifo_ip2);

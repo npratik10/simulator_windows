@@ -1,5 +1,4 @@
 #include "subtract.h"
-#include "component_queue.h"
 
 subtract::subtract(std::string name, clock *clk): component_block(name, clk)
 {

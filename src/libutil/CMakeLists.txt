@@ -11,8 +11,6 @@ list(APPEND lib_inc
 
 list(APPEND lib_src
     "${CMAKE_SOURCE_DIR}/libutil/src/clock.cpp"
-    "${CMAKE_SOURCE_DIR}/libutil/src/component_queue.cpp"
-    "${CMAKE_SOURCE_DIR}/libutil/src/component_block.cpp"
     "${CMAKE_SOURCE_DIR}/libutil/src/subtract.cpp"
 )
 
