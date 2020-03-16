@@ -14,7 +14,6 @@ public:
     // setrr function
     void set_component_attributes(std::string component_name, uint32_t input_buffer_capacity, uint32_t output_buffer_capacity,
         uint32_t input_delay, uint32_t output_delay);
-    uint32_t set_component_output();
     void set_as_first_component(bool state);
     void connect_component_downstream(component* node);
     void connect_component_upstream(component* node);
@@ -25,7 +24,6 @@ public:
     std::string get_component_name();
     void get_incoming_component();
     void get_outgoing_component();
-    bool get_component_input(uint32_t &input_val);
     component* get_downstream_component();
     component* get_upstream_component();
     uint32_t get_output_delay();
@@ -43,7 +41,6 @@ public:
     virtual void component_function();
     void process_clock();
 
-    bool component_output_set;
     uint32_t processed_output;
     uint32_t processed_input;
 

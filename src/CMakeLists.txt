@@ -12,7 +12,8 @@ add_subdirectory(libutil)
 add_subdirectory(sharedmod)
 add_subdirectory(theapp)
 
-add_dependencies(sharedmod libutil)
-add_dependencies(theapp sharedmod)
+#add_dependencies(sharedmod libutil)
+#add_dependencies(theapp libutil)
+#add_dependencies(theapp sharedmod)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT theapp)

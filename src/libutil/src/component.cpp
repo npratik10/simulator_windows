@@ -6,7 +6,6 @@ component::component()
     upstream_component = nullptr;
     is_first_in_block = false;
     processed_output = 0;
-    component_output_set = false;
 }
 
 component::~component()
@@ -38,23 +37,6 @@ void component::set_component_attributes(std::string component_name, uint32_t in
     m_output_delay      = output_delay;
     m_input_delay       = input_delay;
     m_delay             = input_delay;
-}
-
-bool component::get_component_input(uint32_t &input_val)
-{
-    if (is_first_in_block)
-    {
-        input_val = 5;
-        return true; //temporary use 5 for the first block
-    }
-
-    if (upstream_component->is_component_output_ready())
-    {
-        input_val = upstream_component->set_component_output();
-        return true;
-    }
-    else
-        return false;
 }
 
 component * component::get_downstream_component()
@@ -134,17 +116,6 @@ uint32_t component::get_input(bool is_src_upstream_component)
     return 5;
 }
 
-uint32_t component::set_component_output()
-{
-    output_ready_cycle = 0;
-    component_output_set = false;
-    if (downstream_component != nullptr)
-    {
-        downstream_component->component_output_set = false;
-    }
-    return processed_output;
-}
-
 void component::set_as_first_component(bool state)
 {
     is_first_in_block = state;
@@ -179,17 +150,6 @@ void component::component_function()
 
 void component::process_clock()
 {
-    /*uint32_t downstream_input_delay = 0;
-    if (!component_output_set)
-    {
-        this->component_function();
-        if (downstream_component != nullptr)
-        {
-            downstream_input_delay = downstream_component->get_input_delay();
-        }
-        output_ready_cycle = m_component_clock->get_clock_cycle() + this->m_output_delay + downstream_input_delay;
-        component_output_set = true;
-    }*/
     bool is_upstream_component_ip;
     if (input_ready(is_upstream_component_ip))
     {
